@@ -1,0 +1,377 @@
+/* Track F: Delights. Candle streak, seasonal dressing, the weekly parchment. */
+
+/* ---------- candle row ---------- */
+
+.candle {
+  position: relative;
+  display: flex;
+  height: 38px;
+  width: 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.candle-wax {
+  position: relative;
+  width: 11px;
+  height: 20px;
+  border-radius: 3px 3px 2px 2px;
+  background: linear-gradient(90deg, #d9c6b4 0%, #f7efe5 38%, #e8d8c6 70%, #b99f8c 100%);
+  box-shadow: inset 0 -3px 4px color-mix(in srgb, var(--color-ink) 25%, transparent), 0 2px 4px color-mix(in srgb, var(--shadow-color) 40%, transparent);
+}
+
+/* A little melted drip down one side. */
+.candle-wax::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 2px;
+  width: 3px;
+  height: 7px;
+  border-radius: 0 0 2px 2px;
+  background: inherit;
+  filter: brightness(1.04);
+}
+
+.candle-wick {
+  width: 1.5px;
+  height: 4px;
+  border-radius: 1px 1px 0 0;
+  background: #3a2622;
+}
+
+.candle-flame {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  width: 8px;
+  height: 13px;
+  margin-left: -4px;
+  border-radius: 50% 50% 45% 45% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse at 50% 72%, #fffaf0 0%, #ffe6a6 28%, #f0b85a 58%, rgba(200, 120, 60, 0.85) 80%, rgba(200, 120, 60, 0) 100%);
+  box-shadow: 0 0 6px 1px rgba(243, 198, 107, 0.65), 0 -2px 10px 2px color-mix(in srgb, var(--color-gold) 35%, transparent);
+  transform-origin: 50% 90%;
+  animation:
+    candle-ignite 700ms cubic-bezier(0.2, 0.8, 0.3, 1.2) both,
+    candle-breathe 3.6s ease-in-out 700ms infinite;
+  animation-delay: var(--ignite-delay, 0ms), calc(var(--ignite-delay, 0ms) + 700ms);
+}
+
+/* Soft halo of candlelight around the flame. */
+.candle-flame::after {
+  content: '';
+  position: absolute;
+  inset: -9px -10px -6px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(243, 198, 107, 0.28) 0%, color-mix(in srgb, var(--color-gold) 0%, transparent) 70%);
+  pointer-events: none;
+}
+
+.candle-today .candle-flame {
+  animation:
+    candle-ignite 700ms cubic-bezier(0.2, 0.8, 0.3, 1.2) both,
+    candle-flicker 1.9s ease-in-out 700ms infinite;
+  animation-delay: var(--ignite-delay, 0ms), calc(var(--ignite-delay, 0ms) + 700ms);
+}
+
+.candle-unlit .candle-wax {
+  filter: saturate(0.6) brightness(0.72);
+}
+
+.candle-unlit .candle-wick {
+  height: 5px;
+  background: linear-gradient(#1a1110, #4a3430);
+}
+
+.candle-future {
+  opacity: 0.3;
+}
+
+.candle-future .candle-wax {
+  filter: saturate(0.4) brightness(0.6);
+}
+
+/* Today's candle sits on a tiny gold saucer. */
+.candle-today::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  width: 18px;
+  height: 3px;
+  margin-left: -9px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-gold) 0%, transparent), var(--color-gold) 50%, color-mix(in srgb, var(--color-gold) 0%, transparent));
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-gold) 60%, transparent);
+}
+
+@keyframes candle-ignite {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15, 1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes candle-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(0.96, 1.05);
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes candle-flicker {
+  0%,
+  100% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+  18% {
+    transform: scale(0.94, 1.08) skewX(-3deg);
+  }
+  34% {
+    transform: scale(1.04, 0.95) skewX(2deg);
+  }
+  52% {
+    transform: scale(0.97, 1.1) skewX(-1deg);
+  }
+  71% {
+    transform: scale(1.03, 0.97) skewX(3deg);
+  }
+  86% {
+    transform: scale(0.98, 1.04) skewX(-2deg);
+  }
+}
+
+/* ---------- seasonal decor ---------- */
+
+.decor-fall {
+  position: absolute;
+  top: -6vh;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  opacity: var(--alpha, 0.35);
+  animation: decor-fall var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+}
+
+@keyframes decor-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(var(--spin-from, 0deg));
+  }
+  25% {
+    transform: translate3d(var(--drift), 28vh, 0) rotate(calc(var(--spin-from, 0deg) + 90deg));
+  }
+  50% {
+    transform: translate3d(0, 56vh, 0) rotate(calc(var(--spin-from, 0deg) + 180deg));
+  }
+  75% {
+    transform: translate3d(calc(var(--drift) * -1), 84vh, 0) rotate(calc(var(--spin-from, 0deg) + 270deg));
+  }
+  100% {
+    transform: translate3d(0, 114vh, 0) rotate(calc(var(--spin-from, 0deg) + 360deg));
+  }
+}
+
+/* Soft, slightly blurred snow; every third flake is a little star. */
+.decor-snow {
+  border-radius: 9999px;
+  background: radial-gradient(circle, #fffaf2 0%, rgba(247, 239, 229, 0.85) 45%, rgba(247, 239, 229, 0) 72%);
+  filter: blur(0.3px);
+}
+
+.decor-snow.decor-alt {
+  border-radius: 0;
+  clip-path: polygon(50% 0, 58% 36%, 93% 25%, 64% 50%, 93% 75%, 58% 64%, 50% 100%, 42% 64%, 7% 75%, 36% 50%, 7% 25%, 42% 36%);
+  background: #f7efe5;
+}
+
+.decor-leaf {
+  border-radius: 0 72% 0 72%;
+  background: linear-gradient(135deg, var(--color-gold) 0%, #a5532c 55%, var(--color-burgundy) 100%);
+}
+
+.decor-leaf.decor-alt {
+  background: linear-gradient(135deg, #e0b25c 0%, #b8743a 60%, #7b3a24 100%);
+}
+
+/* The leaf's central vein. */
+.decor-leaf::after {
+  content: '';
+  position: absolute;
+  inset: 12% 48% 12% 48%;
+  background: color-mix(in srgb, var(--color-espresso) 35%, transparent);
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+.decor-petal {
+  border-radius: 0 60% 0 60%;
+  height: calc(var(--size) * 0.8);
+  background: radial-gradient(ellipse at 30% 30%, #f1c6cd 0%, var(--color-rose) 40%, #9b3445 100%);
+  box-shadow: inset -1px -1px 2px color-mix(in srgb, var(--color-burgundy) 40%, transparent);
+}
+
+.decor-petal.decor-alt {
+  background: radial-gradient(ellipse at 30% 30%, #c45a6c 0%, #8c2636 55%, var(--color-burgundy) 100%);
+}
+
+/* Five-petal blossom with a gold heart. */
+.decor-blossom {
+  background:
+    radial-gradient(circle at 50% 50%, #e6c88a 0 13%, transparent 15%),
+    radial-gradient(circle at 50% 22%, #f6d9de 0 21%, transparent 23%),
+    radial-gradient(circle at 77% 42%, #f6d9de 0 21%, transparent 23%),
+    radial-gradient(circle at 67% 75%, #f1c6cd 0 21%, transparent 23%),
+    radial-gradient(circle at 33% 75%, #f1c6cd 0 21%, transparent 23%),
+    radial-gradient(circle at 23% 42%, #f6d9de 0 21%, transparent 23%);
+}
+
+.decor-blossom.decor-alt {
+  filter: hue-rotate(-12deg) saturate(0.8);
+}
+
+/* A red holiday ribbon tied across the top-left corner. */
+.decor-ribbon {
+  position: absolute;
+  top: 26px;
+  left: -46px;
+  width: 170px;
+  height: 16px;
+  transform: rotate(-45deg);
+  background: linear-gradient(180deg, #a3202f 0%, #8a1a27 50%, var(--color-burgundy) 100%);
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 70%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 70%, transparent);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--shadow-color) 45%, transparent);
+  opacity: 0.8;
+}
+
+/* The bow's two loops. */
+.decor-ribbon::before,
+.decor-ribbon::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 16px;
+  height: 11px;
+  border: 2px solid #a3202f;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+.decor-ribbon::before {
+  margin-left: -17px;
+  transform: rotate(-18deg);
+}
+
+.decor-ribbon::after {
+  margin-left: 1px;
+  transform: rotate(18deg);
+}
+
+/* With reduced motion the falling things simply rest along the edges. */
+@media (prefers-reduced-motion: reduce) {
+  .decor-fall {
+    top: var(--rest-y);
+    animation: none;
+    transform: rotate(var(--spin-from, 0deg));
+  }
+}
+
+/* ---------- weekly summary ---------- */
+
+.parchment-note {
+  background-image:
+    radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse at 100% 100%, color-mix(in srgb, var(--color-rose) 25%, transparent), transparent 55%),
+    linear-gradient(180deg, #faf4ec 0%, #f2e6d6 100%);
+  box-shadow:
+    inset 0 0 28px rgba(160, 120, 80, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 14px 30px color-mix(in srgb, var(--shadow-color) 45%, transparent);
+  animation: parchment-unfurl 520ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  transform-origin: top center;
+}
+
+.wax-seal {
+  background: radial-gradient(circle at 35% 30%, #9b3445 0%, var(--color-burgundy) 60%, #4a121b 100%);
+  box-shadow: inset 0 -2px 4px color-mix(in srgb, var(--shadow-color) 35%, transparent), inset 0 2px 3px rgba(255, 255, 255, 0.15), 0 2px 6px color-mix(in srgb, var(--shadow-color) 30%, transparent);
+}
+
+.recap-flame {
+  width: 6px;
+  height: 9px;
+  border-radius: 50% 50% 45% 45% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse at 50% 72%, #fff6dc 0%, #f0b85a 55%, var(--color-gold) 100%);
+  box-shadow: 0 0 5px rgba(240, 184, 90, 0.7);
+}
+
+.recap-flame-out {
+  background: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  box-shadow: none;
+}
+
+@keyframes parchment-unfurl {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scaleY(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- delight settings ---------- */
+
+.delight-switch-track {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  background: color-mix(in srgb, var(--color-espresso) 70%, transparent);
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.delight-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #e8dccb, var(--color-taupe) 70%);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-color) 50%, transparent);
+  transition: transform 220ms cubic-bezier(0.3, 1.4, 0.5, 1), background 200ms ease;
+}
+
+[aria-checked='true'] .delight-switch-track {
+  background: var(--color-burgundy);
+  border-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 30%, transparent);
+}
+
+[aria-checked='true'] .delight-switch-knob {
+  transform: translateX(16px);
+  background: radial-gradient(circle at 35% 30%, #fff6dc, var(--color-gold) 70%);
+}
+
+.delight-volume {
+  accent-color: var(--color-gold);
+}

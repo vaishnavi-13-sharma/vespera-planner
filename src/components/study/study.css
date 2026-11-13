@@ -1,0 +1,133 @@
+/* Daily 5: parchment flashcards that deal in, flip over, and settle under a wax seal. */
+
+.study-stage {
+  perspective: 900px;
+}
+
+.study-card {
+  border-radius: 0.75rem;
+  transform-origin: center;
+  backface-visibility: hidden;
+  box-shadow:
+    0 14px 28px color-mix(in srgb, var(--shadow-color) 45%, transparent),
+    inset 0 0 40px color-mix(in srgb, var(--color-gold) 18%, transparent);
+  background-image:
+    radial-gradient(circle at 14% 10%, color-mix(in srgb, var(--color-gold) 24%, transparent), transparent 55%),
+    radial-gradient(circle at 88% 86%, color-mix(in srgb, var(--color-burgundy) 10%, transparent), transparent 50%),
+    linear-gradient(transparent 92%, color-mix(in srgb, var(--color-burgundy) 5%, transparent));
+}
+
+/* A thin gold inner frame, like a gilt-edged card. */
+.study-card::before {
+  content: '';
+  position: absolute;
+  inset: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: 0.45rem;
+  pointer-events: none;
+}
+
+.study-deal {
+  animation: study-deal 420ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.study-flip {
+  animation: study-flip 520ms cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+.study-rise {
+  animation: study-rise 360ms ease-out;
+}
+
+.study-flourish {
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.study-seal {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--color-burgundy) 35%, transparent),
+    0 0 28px color-mix(in srgb, var(--color-gold) 35%, transparent),
+    inset 0 -6px 12px color-mix(in srgb, var(--shadow-color) 35%, transparent);
+  animation: study-stamp 600ms cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.study-float {
+  animation: study-float 4s ease-in-out infinite;
+}
+
+.study-pip-now {
+  animation: study-pip 1.8s ease-in-out infinite;
+}
+
+.study-badge {
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+@keyframes study-deal {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotate(-2.5deg) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes study-flip {
+  0% {
+    transform: rotateY(-90deg) scale(0.98);
+    filter: brightness(0.85);
+  }
+  60% {
+    transform: rotateY(8deg);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes study-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes study-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(1.6) rotate(-12deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes study-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes study-pip {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-gold) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent);
+  }
+}

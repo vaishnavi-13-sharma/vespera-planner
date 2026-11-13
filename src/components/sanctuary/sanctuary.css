@@ -1,0 +1,284 @@
+/* Build E, Track J: the realm picker's little rooms and the sky above the title. */
+
+/* ── Realm cards ─────────────────────────────────────────────── */
+
+.realm-card {
+  transition:
+    border-color 200ms ease,
+    box-shadow 240ms ease,
+    transform 160ms ease;
+}
+
+.realm-card:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.realm-card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.realm-card.is-chosen {
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--color-gold) 28%, transparent),
+    0 4px 12px color-mix(in srgb, var(--shadow-color) 30%, transparent);
+}
+
+.realm-scene {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold) 22%, transparent);
+  filter: saturate(0.82);
+  transition: filter 240ms ease;
+}
+
+.realm-card:hover .realm-scene,
+.realm-card.is-chosen .realm-scene {
+  filter: none;
+}
+
+/* The tiny candle only flickers in the realm you live in (or the one you're eyeing). */
+.realm-scene-flame {
+  transform-box: view-box;
+  transform-origin: 132px 56px;
+}
+
+.realm-card:hover .realm-scene-flame,
+.realm-card.is-chosen .realm-scene-flame {
+  animation: realm-flicker 2.6s ease-in-out infinite;
+}
+
+@keyframes realm-flicker {
+  0%,
+  100% {
+    transform: none;
+  }
+  35% {
+    transform: scale(0.92, 1.08) skewX(-2deg);
+  }
+  65% {
+    transform: scale(1.05, 0.95) skewX(1.5deg);
+  }
+}
+
+/* ── The sky switch ──────────────────────────────────────────── */
+
+.sanctuary-switch-track {
+  position: relative;
+  width: 38px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  background: color-mix(in srgb, var(--color-espresso) 70%, transparent);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.sanctuary-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, var(--color-mahogany), var(--color-taupe) 75%);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-color) 50%, transparent);
+  transition:
+    transform 220ms cubic-bezier(0.3, 1.4, 0.5, 1),
+    background 200ms ease;
+}
+
+[aria-checked='true'] > .sanctuary-switch-track {
+  background: var(--color-burgundy);
+  border-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 30%, transparent);
+}
+
+[aria-checked='true'] > .sanctuary-switch-track .sanctuary-switch-knob {
+  transform: translateX(16px);
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--color-gold) 35%, var(--color-mahogany)), var(--color-gold) 70%);
+}
+
+/* ── Header sky ──────────────────────────────────────────────── */
+
+/*
+ * Every phase is mixed from the realm's own tokens over its page color, so each realm tints its sky.
+ * "--sky-light" is the pale thing in the sky (the dawn sun, starlight): vanilla in the dark realms,
+ * the near-white card color in the light one.
+ */
+.header-sky {
+  --sky-light: var(--color-vanilla);
+  --sky-star: color-mix(in srgb, var(--color-vanilla) 55%, var(--color-gold));
+  overflow: hidden;
+  border-radius: 0 0 3rem 3rem;
+  -webkit-mask-image:
+    linear-gradient(to bottom, black 30%, transparent 100%),
+    linear-gradient(to right, transparent, black 9%, black 91%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, black 30%, transparent 100%),
+    linear-gradient(to right, transparent, black 9%, black 91%, transparent);
+  mask-composite: intersect;
+}
+
+/* In the light realm the sky is a watercolor wash, so the brass title keeps its contrast. */
+[data-realm='sunlit'] .header-sky {
+  --sky-light: var(--color-mahogany);
+  --sky-star: var(--color-gold);
+  opacity: 0.55;
+}
+
+.sky-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.sky-layer.is-active {
+  opacity: 1;
+}
+
+.sky-layer:not(.is-active) * {
+  animation-play-state: paused;
+}
+
+/* Dawn: rosy peach, the sun just clearing the sill. */
+.sky-dawn {
+  background:
+    radial-gradient(ellipse 48% 60% at 24% 76%, color-mix(in srgb, var(--color-gold) 34%, transparent), transparent 70%),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-burgundy) 20%, var(--color-espresso)) 0%,
+      color-mix(in srgb, var(--color-rose) 24%, var(--color-espresso)) 48%,
+      color-mix(in srgb, var(--color-gold) 24%, color-mix(in srgb, var(--color-rose) 18%, var(--color-espresso))) 88%
+    );
+}
+
+.sky-sun {
+  position: absolute;
+  left: 24%;
+  top: 72%;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-gold) 80%, var(--sky-light)) 0 32%,
+    color-mix(in srgb, var(--color-gold) 40%, transparent) 52%,
+    transparent 72%
+  );
+  animation: sky-sun-breathe 8s ease-in-out infinite;
+}
+
+/* The glint: a thin line of light laid along the horizon. */
+.sky-sun::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 220px;
+  height: 1.5px;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-gold) 60%, transparent), transparent);
+}
+
+@keyframes sky-sun-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+}
+
+/* Day: a faint warm tint only. No glow or clouds: they read as a grey smudge behind the header controls on phones. */
+.sky-day {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--color-gold) 6%, var(--color-espresso)) 0%, transparent 100%);
+}
+
+
+
+
+/* Dusk: amber at the horizon, melting up into violet. */
+.sky-dusk {
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 100%, color-mix(in srgb, var(--color-gold) 28%, transparent), transparent 70%),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-burgundy) 38%, color-mix(in srgb, var(--color-rose) 10%, var(--color-espresso))) 0%,
+      color-mix(in srgb, var(--color-rose) 20%, var(--color-espresso)) 46%,
+      color-mix(in srgb, var(--color-gold) 28%, var(--color-espresso)) 88%
+    );
+}
+
+/* Night: deep sky and a scatter of stars. The moon is the header cluster's glyph now, so nothing floats by the controls. */
+.sky-night {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-burgundy) 16%, color-mix(in srgb, var(--shadow-color) 40%, var(--color-espresso))) 0%,
+      color-mix(in srgb, var(--color-burgundy) 10%, var(--color-espresso)) 75%
+    );
+}
+
+/* The header cluster's time-of-day glyph: a soft candle-glow around the line art. */
+.sky-glyph {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-gold) 45%, transparent));
+}
+
+.sky-star {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--sky-star);
+  box-shadow: 0 0 4px 1px color-mix(in srgb, var(--sky-star) 55%, transparent);
+  opacity: 0.9;
+  animation: sky-twinkle 4.8s ease-in-out infinite;
+}
+
+/* Faint cross-glints, so the stars catch the light rather than sit as dots. */
+.sky-star::before,
+.sky-star::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: inherit;
+  opacity: 0.45;
+  transform: translate(-50%, -50%);
+}
+
+.sky-star::before {
+  width: 1px;
+  height: 400%;
+}
+
+.sky-star::after {
+  width: 400%;
+  height: 1px;
+}
+
+@keyframes sky-twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .realm-card .realm-scene-flame,
+  .sky-sun,
+  .sky-star {
+    animation: none !important;
+  }
+}

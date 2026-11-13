@@ -1,0 +1,16 @@
+# Cloudflare Pages response headers (VB-05). Copied as-is into dist/.
+# The CSP allows only Vespera itself, plus: Supabase (sync, sign-in, Realtime), Anthropic (the Oracle,
+# with the person's own key) and Google profile photos. Fonts are self-hosted and realm-boot.js is an
+# external file, so no inline script is needed. Inline styles stay allowed for React style props.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com; worker-src 'self'; manifest-src 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; base-uri 'self'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+# The service worker and its manifest are always re-checked, so a new version is found on the next visit.
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache

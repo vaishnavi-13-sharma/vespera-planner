@@ -1,0 +1,177 @@
+/* Phone layout: velvet bottom tab bar with a candle-lit active tab. */
+
+.shell-tabbar {
+  /* Stay clear of the home indicator and the rounded/notched landscape edges. */
+  padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  background:
+    radial-gradient(ellipse at top, color-mix(in srgb, var(--color-burgundy) 45%, transparent), transparent 75%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-mahogany) 94%, transparent), color-mix(in srgb, var(--color-espresso) 98%, transparent));
+  border-top: 1px solid color-mix(in srgb, var(--color-gold) 32%, transparent);
+  box-shadow:
+    0 -14px 32px color-mix(in srgb, var(--shadow-color) 45%, transparent),
+    inset 0 1px 0 rgba(247, 239, 229, 0.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+
+/* A thin gold filigree line just under the bar's top edge. */
+.shell-tabbar::before {
+  content: '';
+  position: absolute;
+  inset: 3px 18% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-gold) 45%, transparent), transparent);
+  pointer-events: none;
+}
+
+.shell-tab {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.shell-tab-active {
+  background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-gold) 20%, transparent), color-mix(in srgb, var(--color-burgundy) 50%, transparent) 70%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--color-gold) 45%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--color-gold) 14%, transparent),
+    0 0 18px color-mix(in srgb, var(--color-gold) 18%, transparent);
+}
+
+/* A tiny candle flame above the active tab. */
+.shell-flame {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 7px;
+  height: 10px;
+  margin-left: -3.5px;
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  background: radial-gradient(circle at 50% 70%, #fff6dc 0%, #f3dca4 35%, var(--color-gold) 70%, color-mix(in srgb, var(--color-gold) 0%, transparent) 100%);
+  box-shadow: 0 0 10px rgba(243, 220, 164, 0.85), 0 0 20px color-mix(in srgb, var(--color-gold) 45%, transparent);
+  transform-origin: 50% 100%;
+  animation: shell-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes shell-flicker {
+  0%,
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  30% { transform: scale(0.92, 1.08) rotate(-3deg); opacity: 0.9; }
+  60% { transform: scale(1.05, 0.95) rotate(2deg); opacity: 1; }
+}
+
+/* The Happening Now pill: a slim band of gold leaf that stays pinned under the header. */
+.shell-now-pill {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-mahogany) 94%, transparent), color-mix(in srgb, var(--color-espresso) 96%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+  box-shadow:
+    0 8px 22px color-mix(in srgb, var(--shadow-color) 45%, transparent),
+    0 0 16px color-mix(in srgb, var(--color-gold) 18%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--color-gold) 10%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.shell-now-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #fff6dc 0%, var(--color-gold) 70%);
+  box-shadow: 0 0 8px rgba(243, 220, 164, 0.85);
+  animation: shell-flicker 2.4s ease-in-out infinite;
+}
+
+/* The reused Focus launcher keeps its look but gets a full 44px tap target here. */
+.shell-now-focus > button {
+  min-height: 2.75rem;
+  padding-inline: 0.85rem;
+}
+
+/* The Two-Page Open Storybook: a leather cover behind both pages and a soft gold gutter between them. */
+.shell-book {
+  padding: 1.25rem 1rem 1.5rem;
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-burgundy) 28%, transparent), transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-mahogany) 55%, transparent), color-mix(in srgb, var(--color-espresso) 75%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-gold) 18%, transparent);
+  box-shadow:
+    inset 0 0 40px color-mix(in srgb, var(--shadow-color) 35%, transparent),
+    0 18px 40px color-mix(in srgb, var(--shadow-color) 35%, transparent);
+}
+
+.shell-spine {
+  position: relative;
+  margin-block: 0.5rem;
+  pointer-events: none;
+}
+.shell-spine::before {
+  /* Shadow where the pages curve into the binding. */
+  content: '';
+  position: absolute;
+  inset: 0 0.35rem;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--shadow-color) 45%, transparent) 50%, transparent);
+  filter: blur(3px);
+}
+.shell-spine::after {
+  /* The gold stitched spine itself. */
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-gold) 65%, transparent) 12%, rgba(243, 220, 164, 0.8) 50%, color-mix(in srgb, var(--color-gold) 65%, transparent) 88%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+/* Silk bookmark ribbons with a swallowtail end, draped over the right page's top edge. */
+.shell-ribbon {
+  -webkit-tap-highlight-color: transparent;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 0.6rem), 0 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-burgundy) 82%, white), var(--color-burgundy) 60%, color-mix(in srgb, var(--color-burgundy) 75%, black));
+  box-shadow: inset 0 1px 0 rgba(247, 239, 229, 0.12);
+  transform: translateY(-0.35rem);
+}
+.shell-ribbon:hover {
+  transform: translateY(-0.15rem);
+}
+.shell-ribbon-active {
+  background: linear-gradient(180deg, #f3dca4, var(--color-gold) 65%, #a88a52);
+  transform: translateY(0);
+  padding-bottom: 1.35rem;
+}
+.shell-ribbon-active:hover {
+  transform: translateY(0);
+}
+
+/* The Full Vanity Triptych: a wax-seal fold button and the folded Pinboard strip. */
+.shell-seal {
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, color-mix(in srgb, var(--color-burgundy) 82%, white) 95%, transparent), color-mix(in srgb, color-mix(in srgb, var(--color-burgundy) 75%, black) 95%, transparent));
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--shadow-color) 40%, transparent), inset 0 0 8px color-mix(in srgb, var(--color-gold) 15%, transparent);
+}
+
+.shell-strip {
+  position: sticky;
+  top: calc(env(safe-area-inset-top) + 1.5rem);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--color-burgundy) 35%, transparent), transparent 40%, transparent 60%, color-mix(in srgb, var(--color-burgundy) 35%, transparent)),
+    var(--color-mahogany);
+}
+.shell-strip-label {
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+}
+
+/* Panels fade in gently when their tab is chosen. */
+.shell-panel-enter {
+  animation: shell-panel-in 220ms ease-out;
+}
+
+@keyframes shell-panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}

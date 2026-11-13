@@ -1,0 +1,124 @@
+/* Wax seal stamped onto a completed quest. */
+.wax-seal {
+  animation: wax-stamp 420ms cubic-bezier(0.2, 0.9, 0.3, 1.4);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-gold) 35%, transparent), 0 0 14px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+
+@keyframes wax-stamp {
+  0% {
+    transform: scale(1.6) rotate(-20deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.9) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Gold ribbon with a swallowtail notch, pinned to the category whose block is happening now. */
+.now-ribbon {
+  margin-left: -0.75rem;
+  background: linear-gradient(90deg, #a8884f 0%, var(--color-gold) 45%, #e3cc98 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.6rem) 50%, 100% 100%, 0 100%);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--shadow-color) 35%, transparent);
+}
+
+/* Soft rose ribbon for a quest that rolled past its due date. Never red, never "overdue". */
+.carried-ribbon {
+  background: color-mix(in srgb, var(--color-rose) 14%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--color-rose) 70%, transparent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.4rem) 50%, 100% 100%, 0 100%);
+}
+
+/* A category glowing open to receive a dragged quest. */
+.quest-drop-target {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--color-gold) 80%, transparent);
+  background-color: color-mix(in srgb, var(--color-gold) 8%, transparent);
+}
+
+.quest-row[draggable='true'] {
+  cursor: grab;
+}
+
+.quest-row[draggable='true']:active {
+  cursor: grabbing;
+}
+
+/* The starter tutorial's "show me" titles: a dotted gold underline says they can be tapped. */
+.quest-show-me {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.quest-show-me:hover,
+.quest-show-me:focus-visible {
+  text-decoration-color: var(--color-gold);
+}
+
+/* A brief gold ring on whatever the tutorial points at (set by spotlight.ts for 2 seconds). */
+.quest-category[data-spotlight] {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  animation: quest-spotlight 2s ease-out both;
+}
+
+@keyframes quest-spotlight {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-gold) 55%, transparent);
+  }
+  30% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-gold) 22%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--color-gold) 0%, transparent);
+  }
+}
+
+/* The drag handle steps out of hiding (even on phones, where it's usually tucked away) and glows. */
+.quest-grip[data-spotlight] {
+  display: block;
+  opacity: 1;
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-gold) 70%, transparent));
+  animation: quest-grip-nudge 0.5s ease-in-out 3;
+}
+
+@keyframes quest-grip-nudge {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quest-category[data-spotlight],
+  .quest-grip[data-spotlight] {
+    animation: none;
+  }
+}
+
+/* Slow candle shimmer along the golden ribbon. */
+.ribbon-fill {
+  background-image: linear-gradient(90deg, var(--color-rose) 0%, var(--color-gold) 50%, var(--color-rose) 100%);
+  background-size: 200% 100%;
+  animation: ribbon-shimmer 6s linear infinite;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-gold) 60%, transparent);
+}
+
+@keyframes ribbon-shimmer {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}

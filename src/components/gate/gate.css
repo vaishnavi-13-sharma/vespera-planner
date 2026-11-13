@@ -1,0 +1,29 @@
+/* The sign-in gate: a dim hall lit by one warm pool of candlelight, and a flickering candle while it loads. */
+
+.gate-hall {
+  background-color: var(--color-espresso);
+  background-image:
+    radial-gradient(ellipse 60% 45% at 50% 38%, color-mix(in srgb, var(--color-gold) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 110%, color-mix(in srgb, var(--color-burgundy) 28%, transparent), transparent 70%);
+}
+
+.gate-candle {
+  animation: gate-candle-flicker 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-gold) 55%, transparent));
+}
+
+@keyframes gate-candle-flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 0.8;
+    transform: scale(0.96) rotate(-2deg);
+  }
+  70% {
+    opacity: 0.92;
+    transform: scale(1.03) rotate(1deg);
+  }
+}

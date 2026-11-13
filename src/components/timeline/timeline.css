@@ -1,0 +1,54 @@
+/* A silk bookmark ribbon tucked into the top of a card, in the block's accent. */
+.tl-bookmark {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--shadow-color) 35%, transparent);
+}
+
+/* The gold thread of "now", fading at both ends like candlelight. */
+.tl-now-rule {
+  background-image: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-gold) 90%, transparent) 18%, color-mix(in srgb, var(--color-gold) 90%, transparent) 82%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
+
+.tl-now-flame {
+  animation: tl-flicker 2.4s ease-in-out infinite;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 90%, transparent);
+}
+
+@keyframes tl-flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  45% {
+    opacity: 0.7;
+    transform: scale(0.85);
+  }
+  70% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+}
+
+/* The running-late ribbon unfurls gently instead of popping in. */
+.tl-unfurl {
+  animation: tl-unfurl 480ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  transform-origin: top center;
+}
+
+@keyframes tl-unfurl {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scaleY(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Swallowtail ends on the late ribbon's title band. */
+.tl-swallowtail {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%, 10px 50%);
+}

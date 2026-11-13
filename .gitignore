@@ -1,0 +1,14 @@
+node_modules
+dist
+*.local
+# Never commit secrets: real keys live in .env.local (or a plain .env); only the example is tracked.
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage
+# Playwright: its own build and its reports
+dist-e2e
+dist-e2e-gate
+test-results
+playwright-report

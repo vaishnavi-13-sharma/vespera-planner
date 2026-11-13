@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#3a1f1e"/>
+      <stop offset="0.55" stop-color="#261817"/>
+      <stop offset="1" stop-color="#1A1110"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#F3DCA4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#C8A96E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wax" x1="0" x2="1">
+      <stop offset="0" stop-color="#5a1621"/>
+      <stop offset="0.45" stop-color="#8a2a38"/>
+      <stop offset="1" stop-color="#4e121c"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF6DC"/>
+      <stop offset="0.6" stop-color="#F3C870"/>
+      <stop offset="1" stop-color="#C8A96E"/>
+    </linearGradient>
+    <mask id="crescent">
+      <rect width="512" height="512" fill="black"/>
+      <circle cx="356" cy="150" r="48" fill="white"/>
+      <circle cx="378" cy="134" r="44" fill="black"/>
+    </mask>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="300" r="190" fill="none" stroke="#C8A96E" stroke-opacity="0.28" stroke-width="3"/>
+  <rect width="512" height="512" fill="#C8A96E" mask="url(#crescent)"/>
+  <circle cx="160" cy="150" r="3.5" fill="#F7EFE5" opacity="0.7"/>
+  <circle cx="136" cy="214" r="2.5" fill="#F7EFE5" opacity="0.5"/>
+  <circle cx="396" cy="236" r="2.5" fill="#F7EFE5" opacity="0.5"/>
+  <circle cx="256" cy="196" r="92" fill="url(#glow)"/>
+  <path d="M256 140 C272 168 282 186 282 204 C282 222 270 236 256 236 C242 236 230 222 230 204 C230 186 240 168 256 140 Z" fill="url(#flame)"/>
+  <path d="M256 186 C262 198 266 206 266 214 C266 223 261 229 256 229 C251 229 246 223 246 214 C246 206 250 198 256 186 Z" fill="#FFFDF6"/>
+  <rect x="252" y="230" width="8" height="22" rx="3" fill="#2B1B19"/>
+  <path d="M210 252 H302 V392 H210 Z" fill="url(#wax)"/>
+  <path d="M210 252 H302 V266 C296 266 294 292 288 292 C282 292 282 270 276 270 C268 270 270 300 262 300 C254 300 256 268 246 268 C238 268 238 284 230 284 C222 284 222 266 210 266 Z" fill="#9b3443"/>
+  <ellipse cx="256" cy="398" rx="86" ry="14" fill="#C8A96E"/>
+  <ellipse cx="256" cy="394" rx="60" ry="8" fill="#a8894f"/>
+</svg>

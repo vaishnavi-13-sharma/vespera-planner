@@ -1,0 +1,76 @@
+/* Velvet-lined drawer compartments that open one after another. */
+.vanity-compartment {
+  background-image:
+    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--color-gold) 8%, transparent), transparent 45%),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--color-burgundy) 25%, transparent), transparent 55%);
+  animation: drawer-open 360ms ease-out both;
+}
+
+.vanity-compartment:nth-of-type(2) {
+  animation-delay: 60ms;
+}
+
+.vanity-compartment:nth-of-type(3) {
+  animation-delay: 120ms;
+}
+
+/* Each compartment slides open like a drawer on velvet runners: a smooth height, from 0 to its contents. */
+.vanity-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  /* Stay visible while closing, then hide (so nothing folded away can be tabbed to or read aloud). */
+  transition:
+    grid-template-rows 300ms ease,
+    visibility 0s linear 300ms;
+}
+
+.vanity-compartment[data-open='true'] > .vanity-panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 300ms ease,
+    visibility 0s;
+}
+
+.vanity-panel-inner {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.vanity-chevron {
+  transition: transform 300ms ease;
+}
+
+.vanity-compartment[data-open='true'] .vanity-chevron {
+  transform: rotate(180deg);
+}
+
+.vanity-compartment[data-open='true'] .vanity-header {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vanity-panel,
+  .vanity-compartment[data-open='true'] > .vanity-panel,
+  .vanity-chevron {
+    transition: none;
+  }
+}
+
+.tiny-action {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-gold) 12%, transparent);
+}
+
+@keyframes drawer-open {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
